@@ -1,5 +1,5 @@
-class Ship():
-    def __init__(self, ship_registry: str ,size : int):
+class Ship:
+    def __init__(self, ship_registry: str, size: int):
         self.__ship_registry = ship_registry
         self.__size = size
         self.__life = size
@@ -8,7 +8,7 @@ class Ship():
     @property
     def ship_registry(self) -> str:
         return self.__ship_registry
-    
+
     @property
     def size(self) -> int:
         return self.__size
@@ -23,4 +23,4 @@ class Ship():
 
     def receiveAttack(self):
         self.__life -= 1
-        self.__isAlive = False if (self.__life == 0) else True    
+        self.__isAlive = False if (self.__life == 0) else True
