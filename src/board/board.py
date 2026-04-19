@@ -128,8 +128,7 @@ class Board:
                 break
         return True if (ship_size == 0) else False
 
-    def positionAttack(self, player_type: int) -> list:
-        attack = []
+    def positionAttack(self, player_type: int) -> tuple:
         while True:
             try:
                 row = (
@@ -144,9 +143,7 @@ class Board:
                 )
                 if (row > -1 and row < 10) and (column > -1 and column < 10):
                     if self.__attack_board[row][column] == " ":
-                        attack.append(row)
-                        attack.append(column)
-                        break
+                        return row, column
                     else:
                         print(
                             "The position you selected has already been attacked. Please select another position."
@@ -158,9 +155,8 @@ class Board:
             except ValueError as e:
                 print("Error: The entered value is not a valid option")
                 print(f"An error has occurred: {e}")
-        return attack
 
-    def markAttack(self, row: str, column: str, result_sign: str):
+    def markAttack(self, row: int, column: int, result_sign: str):
         self.__attack_board[row][column] = result_sign
 
     def hasLiveShips(self) -> bool:
@@ -176,7 +172,7 @@ class Board:
             else False
         )
 
-    def receiveEnemyAttack(self, attack: list) -> str:
+    def receiveEnemyAttack(self, attack: tuple) -> str:
         attack_result = self.__receiveEnemyAttack(attack)
         result_sign = attack_result[0]
         if result_sign != "x":
@@ -193,10 +189,9 @@ class Board:
                 self.__carrier.receiveAttack()
         return result_sign
 
-    def __receiveEnemyAttack(self, attack: list) -> list:
+    def __receiveEnemyAttack(self, attack: tuple) -> tuple:
         row = attack[0]
         column = attack[1]
-        attack_result = []
         ship_attacked = (
             ""
             if (self.__ships_board[row][column] == "v")
@@ -211,6 +206,4 @@ class Board:
             else "Attack successful!!!"
         )
         print(attack_result_text, end="\n\n")
-        attack_result.append(self.__ships_board[row][column])
-        attack_result.append(ship_attacked)
-        return attack_result
+        return self.__ships_board[row][column], ship_attacked

@@ -29,13 +29,13 @@ class Player:
     def placeShips(self, player_type: int):
         self.__board.placeShips(player_type)
 
-    def attackEnemy(self, player_type: int) -> list:
+    def attackEnemy(self, player_type: int) -> tuple:
         return self.__board.positionAttack(player_type)
 
-    def receiveAttack(self, attack: list) -> str:
+    def receiveAttack(self, attack: tuple) -> str:
         return self.__board.receiveEnemyAttack(attack)
 
-    def markAttack(self, attack: list, result_sign: str):
+    def markAttack(self, attack: tuple, result_sign: str):
         self.__board.markAttack(attack[0], attack[1], result_sign)
 
     def endOfGame(self):
